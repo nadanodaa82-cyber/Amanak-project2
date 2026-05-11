@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة أمانك | AMANAK Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --main-purple: #5c4db1; 
+            --light-purple: #a74eb5;
+            --blue-gradient: linear-gradient(135deg, #25aae1 0%, #a74eb5 100%);
+            --soft-bg: #f8f9ff;
+            --text-dark: #2d2d5f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--soft-bg); color: var(--text-dark); scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* Navigation & Logo */
+        header {
+            background: white; padding: 15px 8%; display: flex; justify-content: space-between;
+            align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 700; cursor: pointer; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--main-purple); }
+
+        .logo-container { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-text { display: flex; flex-direction: column; text-align: left; }
+        .logo-text span:first-child { font-size: 24px; font-weight: 900; background: var(--blue-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .logo-text span:last-child { font-size: 11px; font-weight: bold; color: var(--light-purple); letter-spacing: 1px; }
+
+        .container { max-width: 1150px; margin: 0 auto; padding: 20px; }
+
+        /* Pages System */
+        .page { display: none; animation: fadeIn 0.6s ease-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- تصميم الصفحة الرئيسية المطور (Hero Section) --- */
+        .hero-section { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 60px 0; align-items: center; }
+        .hero-text h1 { font-size: 45px; font-weight: 900; line-height: 1.3; color: #1a1a4b; }
+        .hero-text h1 span { color: var(--main-purple); background: var(--blue-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-text p { font-size: 19px; color: #555; margin: 20px 0 35px; line-height: 1.8; }
+        
+        .btn-primary { background: var(--blue-gradient); color: white; padding: 15px 35px; border-radius: 15px; border: none; font-weight: 900; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(37, 170, 225, 0.3); }
+        .btn-outline { background: white; border: 2px solid var(--main-purple); color: var(--main-purple); padding: 15px 35px; border-radius: 15px; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        
+        .hero-visual { position: relative; text-align: center; }
+        .main-circle { width: 280px; height: 280px; background: var(--blue-gradient); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; position: relative; }
+        .main-circle i { font-size: 120px; color: white; }
+        .float-tag { position: absolute; background: white; padding: 12px 20px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-weight: 800; display: flex; align-items: center; gap: 8px; animation: floating 3.5s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Features Grid */
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin: 40px 0; }
+        .f-card { background: white; padding: 30px; border-radius: 25px; text-align: center; transition: 0.4s; border: 1px solid #f0f0f0; cursor: pointer; }
+        .f-card:hover { transform: translateY(-10px); border-color: var(--main-purple); box-shadow: 0 20px 40px rgba(92, 77, 177, 0.08); }
+        .f-icon { width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 24px; }
+
+        /* Dashboard & Forms */
+        .card { background: white; border-radius: 25px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid #f0f0f0; }
+        .section-title { font-size: 22px; font-weight: 900; margin-bottom: 25px; border-right: 5px solid var(--main-purple); padding-right: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .stats-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-box { padding: 25px; border-radius: 20px; color: white; text-align: center; }
+        .form-group { text-align: right; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #eee; background: #fafafa; outline: none; }
+
+        .session-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f9f9f9; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; background: #eef2ff; color: #5c4db1; }
+
+        footer { text-align: center; padding: 40px; color: #888; font-size: 13px; border-top: 1px solid #eee; margin-top: 50px; }
+
+        @media (max-width: 768px) {
+            .hero-section, .features-grid, .stats-container { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="auth-btns">
+            <button class="btn-outline" style="padding: 6px 18px; font-size: 13px;" onclick="showPage('login-page')">دخول</button>
+        </div>
+        <nav class="nav-links">
+            <a onclick="showPage('home-page')" id="nav-home" class="active">الرئيسية</a>
+            <a onclick="showPage('booking-page')" id="nav-booking">حجز استشارة</a>
+            <a onclick="showPage('dashboard-page')" id="nav-dashboard">لوحة التحكم</a>
+            <a onclick="showPage('courses-page')" id="nav-courses">الدورات</a>
+        </nav>
+        <div class="logo-container" onclick="showPage('home-page')">
+            <div class="logo-text">
+                <span>أمانك</span>
+                <span>AMANAK</span>
+            </div>
+            <i class="fas fa-hands-helping" style="font-size: 30px; color: var(--main-purple);"></i>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div id="home-page" class="page active">
+            <section class="hero-section">
+                <div class="hero-text">
+                    <div style="color: var(--light-purple); font-weight: 900; margin-bottom: 10px;">👋 مرحباً بكِ في جامعة طيبة</div>
+                    <h1>مساحتكِ الآمنة لـ <span>حياة جامعية</span> هادئة</h1>
+                    <p>منصة أمانكِ توفر لكِ الدعم النفسي والاجتماعي بخصوصية تامة. احجزي استشارتكِ، وطوري مهاراتكِ في بيئة داعمة.</p>
+                    <div style="display:flex; gap:15px;">
+                        <button class="btn-primary" onclick="showPage('booking-page')">ابدئي حجز استشارة</button>
+                        <button class="btn-outline" onclick="showPage('dashboard-page')">لوحة التحكم</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="main-circle"><i class="fas fa-brain"></i></div>
+                    <div class="float-tag" style="top: 10%; right: -5%; color: #2ecc71;"><i class="fas fa-shield-alt"></i> سرية تامة</div>
+                    <div class="float-tag" style="bottom: 15%; left: -5%; color: var(--main-purple); animation-delay: 1s;"><i class="fas fa-user-md"></i> أخصائيات خبيرات</div>
+                </div>
+            </section>
+
+            <div class="features-grid">
+                <div class="f-card" onclick="showPage('booking-page')">
+                    <div class="f-icon" style="background: #eef2ff; color: var(--main-purple);"><i class="fas fa-calendar-check"></i></div>
+                    <h3>حجز استشارات</h3>
+                    <p>جلسات فردية وجماعية بكل خصوصية.</p>
+                </div>
+                <div class="f-card" onclick="showPage('dashboard-page')">
+                    <div class="f-icon" style="background: #fff0f6; color: #d63384;"><i class="fas fa-chart-pie"></i></div>
+                    <h3>متابعة الحالة</h3>
+                    <p>تقارير دورية تتبع تقدمكِ النفسي.</p>
+                </div>
+                <div class="f-card" onclick="showPage('courses-page')">
+                    <div class="f-icon" style="background: #e6fffa; color: #00b894;"><i class="fas fa-laptop-code"></i></div>
+                    <h3>دورات تدريبية</h3>
+                    <p>مهارات حياتية وتطوير ذاتي مستمر.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="booking-page" class="page">
+            <div style="max-width: 700px; margin: 0 auto;" class="card">
+                <span class="section-title"><i class="fas fa-edit"></i> طلب موعد جديد</span>
+                <div class="form-group">
+                    <label>نوع الاستشارة</label>
+                    <select id="cons-type">
+                        <option>نفسية</option>
+                        <option>اجتماعية</option>
+                        <option>تربوية</option>
+                    </select>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                    <div class="form-group"><label>التاريخ</label><input type="date" id="cons-date"></div>
+                    <div class="form-group"><label>الوقت</label><input type="time" id="cons-time"></div>
+                </div>
+                <button class="btn-primary" style="width:100%;" onclick="confirmBooking()">تأكيد الحجز</button>
+            </div>
+        </div>
+
+        <div id="dashboard-page" class="page">
+            <div class="stats-container">
+                <div class="stat-box" style="background:var(--main-purple);"><h3>05</h3><p>جلسات مكتملة</p></div>
+                <div class="stat-box" style="background:#25aae1;"><h3>01</h3><p>مواعيد قادمة</p></div>
+                <div class="stat-box" style="background:var(--light-purple);"><h3>90%</h3><p>نسبة الاستقرار</p></div>
+            </div>
+            <div class="card">
+                <span class="section-title"><i class="fas fa-history"></i> سجل الجلسات</span>
+                <div id="sessions-list">
+                    <div class="session-item">
+                        <div><strong>استشارة نفسية</strong><br><small>12 ابريل 2026 | 10:00 صباحاً</small></div>
+                        <span class="status-badge">مؤكد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="courses-page" class="page">
+            <span class="section-title">الدورات المتاحة</span>
+            <div class="features-grid">
+                <div class="card">
+                    <h3>إدارة ضغوط الدراسة</h3>
+                    <p style="margin: 10px 0; color: #666;">كيف تتعاملين مع القلق الدراسي.</p>
+                    <button class="btn-primary" style="padding: 10px; font-size: 13px;">اشتركي الآن</button>
+                </div>
+                <div class="card">
+                    <h3>الثقة بالنفس</h3>
+                    <p style="margin: 10px 0; color: #666;">بناء شخصية قيادية قوية.</p>
+                    <button class="btn-primary" style="padding: 10px; font-size: 13px;">اشتركي الآن</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="login-page" class="page">
+            <div style="max-width: 400px; margin: 50px auto;" class="card">
+                <h2 style="text-align:center; margin-bottom:20px;">تسجيل الدخول</h2>
+                <div class="form-group"><label>البريد الجامعي</label><input type="email" placeholder="example@taibahu.edu.sa"></div>
+                <div class="form-group"><label>كلمة المرور</label><input type="password" placeholder="********"></div>
+                <button class="btn-primary" style="width:100%;" onclick="showPage('home-page')">دخول</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>مشروع تخرج - منصة أمانك جامعة طيبة &copy; 2026</footer>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            if(document.getElementById('nav-' + pageId.split('-')[0])) {
+                document.getElementById('nav-' + pageId.split('-')[0]).classList.add('active');
+            }
+            window.scrollTo(0,0);
+        }
+
+        function confirmBooking() {
+            const date = document.getElementById('cons-date').value;
+            const time = document.getElementById('cons-time').value;
+            if(!date || !time) { alert("من فضلك اختاري التاريخ والوقت"); return; }
+            
+            alert("تم حجز موعدك بنجاح! سيتم إضافته للوحة التحكم.");
+            showPage('dashboard-page');
+        }
+    </script>
+</body>
+  </html>
